@@ -36,7 +36,7 @@ export default function AdminLoginPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="input-hacker flex-1 !border-red-700 !focus:ring-red-500"
+              className="input-hacker flex-1 border-red-700! !focus:ring-red-500"
               autoFocus
             />
             <Cursor />
