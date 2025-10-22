@@ -9,11 +9,11 @@ export default function UserDashboard() {
   return (
     <div className="flex flex-col gap-8">
       <h2 className="text-3xl font-bold">Welcome, {name}!</h2>
-      <div className="grid md:grid-cols-3 gap-8">
-        <div className="md:col-span-2">
+      <div className="grid lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2">
           <ProblemList />
         </div>
-        <div className="md:col-span-1">
+        <div className="lg:col-span-1">
           <Leaderboard />
         </div>
       </div>

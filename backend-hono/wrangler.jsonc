@@ -8,7 +8,7 @@
 	},
 	"d1_databases": [
 		{
-			"binding": "d100",
+			"binding": "DB",
 			"database_name": "d100",
 			"database_id": "da76b0ec-980b-4512-aa68-122b1152cf7f"
 		}
