@@ -1,0 +1,16 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "backend-hono",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-10-22",
+	"observability": {
+		"enabled": true
+	},
+	"d1_databases": [
+		{
+			"binding": "d100",
+			"database_name": "d100",
+			"database_id": "da76b0ec-980b-4512-aa68-122b1152cf7f"
+		}
+	]
+}
