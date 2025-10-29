@@ -39,9 +39,9 @@ export default function PublishSolution() {
         placeholder="e.g., 1"
         value={day}
         onChange={(e) => setDay(e.target.value)}
-        className="input-hacker !border-red-700 !focus:ring-red-500"
+        className="input-hacker border-red-700! !focus:ring-red-500"
       />
-      <button type="submit" disabled={isLoading} className="btn-hacker-admin !bg-orange-500 !border-orange-500 disabled:opacity-50">
+      <button type="submit" disabled={isLoading} className="btn-hacker-admin bg-orange-500! border-orange-500! disabled:opacity-50">
         {isLoading ? 'PUBLISHING...' : 'PUBLISH_SOLUTIONS'}
       </button>
       {message && (

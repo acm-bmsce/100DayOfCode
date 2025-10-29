@@ -54,7 +54,7 @@ export default function AddProblem() {
           type="text" 
           value={questionName} 
           onChange={(e) => setQuestionName(e.target.value)} 
-          className="input-hacker !border-red-700 !focus:ring-red-500 w-full" 
+          className="input-hacker border-red-700! !focus:ring-red-500 w-full" 
           required 
         />
       </div>
@@ -66,7 +66,7 @@ export default function AddProblem() {
           type="url" 
           value={link} 
           onChange={(e) => setLink(e.target.value)} 
-          className="input-hacker !border-red-700 !focus:ring-red-500 w-full" 
+          className="input-hacker border-red-700! !focus:ring-red-500 w-full" 
           placeholder="https://leetcode.com/problems/..."
           required 
         />
@@ -80,7 +80,7 @@ export default function AddProblem() {
             type="number" 
             value={day} 
             onChange={(e) => setDay(e.target.value)} 
-            className="input-hacker !border-red-700 !focus:ring-red-500 w-full" 
+            className="input-hacker border-red-700! !focus:ring-red-500 w-full" 
             required 
           />
         </div>
@@ -91,7 +91,7 @@ export default function AddProblem() {
             type="number" 
             value={points} 
             onChange={(e) => setPoints(e.target.value)} 
-            className="input-hacker !border-red-700 !focus:ring-red-500 w-full" 
+            className="input-hacker border-red-700! !focus:ring-red-500 w-full" 
             required 
           />
         </div>
