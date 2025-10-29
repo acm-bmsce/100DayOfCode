@@ -1,4 +1,6 @@
+/** @type {import('tailwindcss').Config} */
 import defaultTheme from 'tailwindcss/defaultTheme'
+import colors from 'tailwindcss/colors'
 
 export default {
   content: [
@@ -6,34 +8,17 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    colors: {
+      ...colors, // Ensure all default Tailwind colors are available
+      // If you need custom colors, define them here, e.g.,
+      // 'primary': '#4f46e5', // A custom indigo
+      // 'secondary': '#1e293b', // A custom slate
+    },
     extend: {
-      colors: {
-        gray: { 700: '#374151' },
-        green: {
-          300: '#6EE7B7',
-          400: '#34D399',
-          500: '#10B981',
-          600: '#059669',
-          700: '#047857',
-          900: '#064E3B',
-        },
-        red: { 400: '#F87171', 500: '#EF4444', 600: '#DC2626', 700: '#B91C1C' },
-        cyan: { 300: '#67E8F9', 400: '#22D3EE', 500: '#06B6D4', 600: '#0891B2' },
-        orange: { 300: '#FDBA74', 400: '#FB923C' },
-        yellow: { 500: '#EAB308' },
-      },
       fontFamily: {
-        'mono': ['"Fira Code"', ...defaultTheme.fontFamily.mono],
+        // You can add a more modern sans-serif if 'system-ui' isn't what you want
+        // 'sans': ['Inter', ...defaultTheme.fontFamily.sans],
       },
-      keyframes: {
-        blink: {
-          '0%, 100%': { opacity: 1 },
-          '50%': { opacity: 0 },
-        }
-      },
-      animation: {
-        blink: 'blink 1s step-end infinite',
-      }
     },
   },
   plugins: [],

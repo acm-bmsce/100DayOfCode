@@ -148,4 +148,80 @@ app.post('/api/admin/update-user-score', async (c) => {
   }
 })
 
+app.get('/api/admin/all-problems', async (c) => {
+  // TODO: Add proper admin authentication check here in a real app
+  const stmt = c.env.DB.prepare('SELECT id, question_name, day, isPublic, solution_link, isSolutionPublic FROM Problems ORDER BY day, id');
+  const { results } = await stmt.all();
+  return c.json(results);
+});
+
+app.post('/api/admin/add-problem', async (c) => {
+  // In a real app, you'd add admin auth here
+  const { question_name, points, link, day } = await c.req.json();
+
+  // Basic validation
+  if (!question_name || !points || !link || !day) {
+    return c.json({ error: 'All fields are required' }, 400);
+  }
+
+  try {
+    const stmt = c.env.DB.prepare(
+      'INSERT INTO Problems (question_name, points, link, day, isPublic) VALUES (?, ?, ?, ?, 0)'
+    );
+    // New problems are always created as 'isPublic = 0' (Hidden)
+    await stmt.bind(question_name, points, link, day).run();
+    
+    return c.json({ success: true, message: `Added problem: ${question_name}` });
+  
+  } catch (e: any) {
+    // Handle the case where the problem name is not unique
+    if (e.message.includes('UNIQUE constraint failed')) {
+      return c.json({ error: 'A problem with this name already exists' }, 409); // 409 Conflict
+    }
+    // Handle other errors
+    return c.json({ error: e.message }, 500);
+  }
+});
+
+app.post('/api/admin/add-solution', async (c) => {
+  // TODO: Add admin auth
+  const { problem_id, solution_link } = await c.req.json();
+
+  if (!problem_id || !solution_link) {
+    return c.json({ error: 'Problem ID and solution link are required' }, 400);
+  }
+
+  try {
+    const stmt = c.env.DB.prepare(
+      'UPDATE Problems SET solution_link = ? WHERE id = ?'
+    );
+    await stmt.bind(solution_link, problem_id).run();
+
+    return c.json({ success: true, message: 'Solution link updated' });
+
+  } catch (e: any) {
+    return c.json({ error: e.message }, 500);
+  }
+});
+
+app.post('/api/admin/publish-solution', async (c) => {
+  // TODO: Add admin auth
+  const { day } = await c.req.json();
+  if (!day) {
+    return c.json({ error: 'Day required' }, 400);
+  }
+
+  try {
+    const stmt = c.env.DB.prepare(
+      'UPDATE Problems SET isSolutionPublic = 1 WHERE day = ?'
+    );
+    await stmt.bind(day).run();
+    
+    return c.json({ success: true, message: `Solutions for day ${day} published` });
+  
+  } catch (e: any) {
+    return c.json({ error: e.message }, 500);
+  }
+});
+
 export default app

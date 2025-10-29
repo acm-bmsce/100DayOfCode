@@ -20,7 +20,7 @@ export async function fetchUserSubmissions(username: string): Promise<Set<string
   -- IMPORTANT: Using limit=1000, not 7, to get a large history.
   -- This is critical for the logic to work.
   */
-  const url = `${LEETCODE_API_URL}/${username}/acSubmission?limit=1000`;
+  const url = `${LEETCODE_API_URL}/${username}/acSubmission?limit=10`;
   
   try {
     const response = await fetch(url);
