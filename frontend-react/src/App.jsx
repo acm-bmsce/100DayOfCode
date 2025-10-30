@@ -7,6 +7,8 @@ import UserDashboard from './pages/UserDashboard'
 import AdminDashboard from './pages/AdminDashboard'
 import ProtectedUserRoute from './components/ProtectedUserRoute'
 import ProtectedAdminRoute from './components/ProtectedAdminRoute'
+import Logo from './assets/Logo.png'
+
 
 function App() {
   const { username, isAdmin, checkAuth, logout } = useAuthStore()
@@ -27,10 +29,12 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
           {/* Green accent line */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-green-500"></div>
-          
-          <h1 className="text-xl md:text-2xl font-bold text-gray-800 relative pt-1"> {/* Adjusted text style */}
-            &gt; 100_DAYS_OF_CODE
-          </h1>
+          <div className="flex items-center space-x-3 "> {/* Increased space-x */}
+            <img src={Logo} alt="ACM Logo" className="h-18 w-auto" /> {/* Logo Image (adjust h-8 if needed) */}
+            <h1 className="text-xl md:text-2xl font-bold text-gray-800">
+              100 DAYS OF CODE - BMSCE ACM Student Chapter
+            </h1>
+          </div>
           {username && (
             <div className="flex items-center space-x-4 relative pt-1">
                <span className="text-gray-600 hidden sm:inline">Welcome, {username}!</span>
@@ -46,7 +50,7 @@ function App() {
         </div>
       </header>
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full"> {/* Centered content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grow w-full"> {/* Centered content */}
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<UserLoginPage />} />

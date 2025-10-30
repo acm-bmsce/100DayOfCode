@@ -26,7 +26,7 @@ export default function ProblemList() {
 
   return (
     // Dark card styling from screenshot
-    <div className="bg-slate-800 text-slate-100 p-6 rounded-lg shadow-lg"> 
+    <div className="bg-slate-800 text-slate-100 p-6 rounded-lg shadow-lg max-h-[calc(100vh-15rem)] overflow-y-auto"> 
       <h3 className="text-xl font-bold mb-4 border-b border-slate-700 pb-2 text-slate-100">Problem Set</h3>
       {isLoading ? (
         <p className="text-slate-400">Loading problems...</p>

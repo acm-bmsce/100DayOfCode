@@ -28,7 +28,7 @@ export default function UserLoginPage() {
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow border border-gray-200">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            System Login
+            User Login
           </h2>
         </div>
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
@@ -43,7 +43,7 @@ export default function UserLoginPage() {
                 autoComplete="username"
                 required
                 className={inputClass}
-                placeholder="Username"
+                placeholder="Enter your leetcode username...."
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
