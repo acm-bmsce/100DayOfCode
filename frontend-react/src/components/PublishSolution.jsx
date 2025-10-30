@@ -29,9 +29,9 @@ export default function PublishSolution() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <h3 className="text-xl font-semibold text-red-500">PUBLISH_SOLUTIONS</h3>
+      <h3 className="text-xl font-semibold text-red-500">PUBLISH SOLUTIONS</h3>
       <label htmlFor="publish-sol-day" className="block text-red-400">
-        &gt; DAY_NUMBER:
+        &gt; DAY NUMBER:
       </label>
       <input
         id="publish-sol-day"

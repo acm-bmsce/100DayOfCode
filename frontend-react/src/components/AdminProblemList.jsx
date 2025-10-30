@@ -27,7 +27,7 @@ export default function AdminProblemList() {
 
   return (
     <div className="border border-red-700 p-6">
-      <h3 className="text-xl font-semibold text-red-500 mb-4">MASTER_PROBLEM_LIST</h3>
+      <h3 className="text-xl font-semibold text-red-500 mb-4">MASTER PROBLEM LIST</h3>
       {isLoading && <p>Loading problems...</p>}
       {error && <p className="text-red-500">Error: {error}</p>}
       {!isLoading && !error && (

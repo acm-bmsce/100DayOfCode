@@ -7,7 +7,7 @@ export default function AddProblem() {
   const [link, setLink] = useState('');
   const [day, setDay] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState(null); // To show success/error messages
+  const [message, setMessage] = useState(null); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +45,7 @@ export default function AddProblem() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <h3 className="text-xl font-semibold text-red-500">ADD_NEW_PROBLEM</h3>
+      <h3 className="text-xl font-semibold text-red-500">ADD NEW PROBLEM</h3>
       
       <div>
         <label htmlFor="q-name" className="block text-red-400">&gt; Question Name:</label>
@@ -100,8 +100,6 @@ export default function AddProblem() {
       <button type="submit" disabled={isLoading} className="btn-hacker-admin disabled:opacity-50">
         {isLoading ? 'ADDING...' : 'ADD_TO_DATABASE'}
       </button>
-
-      {/* Show success or error message */}
       {message && (
         <p className={`mt-2 text-center ${message.type === 'error' ? 'text-red-500' : 'text-green-400'}`}>
           {message.text}
