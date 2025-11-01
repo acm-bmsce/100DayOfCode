@@ -16,6 +16,7 @@
 		"wrangler": "^4.44.0"
 	},
 	"dependencies": {
-		"hono": "^4.10.2"
+		"hono": "^4.10.2",
+		"leetcode-query": "^2.0.1"
 	}
 }
