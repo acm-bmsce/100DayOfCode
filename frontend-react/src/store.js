@@ -6,14 +6,21 @@ export const useAuthStore = create((set) => ({
   username: null,
   name: null,
   isAdmin: false,
+  adminPassword: null, // Stores the password in state for admin API calls
   isLoading: true,
-  error: null, // This error state isn't really used anymore but is fine to keep
+  error: null,
 
   checkAuth: () => {
     try {
       const auth = JSON.parse(localStorage.getItem('auth'))
       if (auth && auth.username) {
-        set({ username: auth.username, name: auth.name, isAdmin: auth.isAdmin, isLoading: false })
+        set({
+          username: auth.username,
+          name: auth.name,
+          isAdmin: auth.isAdmin,
+          adminPassword: auth.adminPassword || null, // Load password from localStorage
+          isLoading: false
+        })
       } else {
         set({ isLoading: false })
       }
@@ -50,7 +57,14 @@ export const useAuthStore = create((set) => ({
         body: JSON.stringify({ password }),
       })
       if (!res.ok) throw new Error('Invalid password')
-      const auth = { username: 'Admin', name: 'Admin', isAdmin: true }
+      
+      // Store the password in state and localStorage
+      const auth = {
+        username: 'Admin',
+        name: 'Admin',
+        isAdmin: true,
+        adminPassword: password // Save the password
+      }
       localStorage.setItem('auth', JSON.stringify(auth))
       set({ ...auth, isLoading: false })
       return true // Return true on success
@@ -62,6 +76,11 @@ export const useAuthStore = create((set) => ({
 
   logout: () => {
     localStorage.removeItem('auth')
-    set({ username: null, name: null, isAdmin: false })
+    set({
+      username: null,
+      name: null,
+      isAdmin: false,
+      adminPassword: null // Clear the password on logout
+    })
   },
 }))

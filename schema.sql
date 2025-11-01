@@ -2,6 +2,7 @@
 DROP TABLE IF EXISTS Leaderboard;
 DROP TABLE IF EXISTS Problems;
 DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Settings;
 
 CREATE TABLE Users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -26,4 +27,9 @@ CREATE TABLE Leaderboard (
     points INTEGER NOT NULL DEFAULT 0,
     streak INTEGER NOT NULL DEFAULT 0,
     FOREIGN KEY (username) REFERENCES Users (username)
+);
+
+CREATE TABLE Settings (
+    key TEXT PRIMARY KEY,
+    value TEXT NOT NULL
 );

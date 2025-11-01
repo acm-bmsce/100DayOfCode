@@ -1,6 +1,7 @@
 DELETE FROM Leaderboard;
 DELETE FROM Problems;
 DELETE FROM Users;
+DELETE FROM Settings;
 
 INSERT INTO Users (username, name) VALUES ('Madhanns', 'MADHANAGOPAL N S');
 INSERT INTO Users (username, name) VALUES ('koushiksm445', 'S M Koushik');
@@ -887,3 +888,5 @@ INSERT INTO Problems (question_name, points, link, day, isPublic, solution_link,
 
 INSERT INTO Leaderboard (username, points, streak) 
 SELECT username, 0, 0 FROM Users;
+
+INSERT INTO Settings (key, value) VALUES ('processing_day', '0');

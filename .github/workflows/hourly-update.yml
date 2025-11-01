@@ -1,0 +1,36 @@
+name: Hourly Leaderboard Updater
+
+on:
+  schedule:
+    - cron: '0 * * * *' # top of every hour
+  workflow_dispatch:
+    inputs:
+      day:
+        description: 'Day to process (optional). If empty, script will find latest.'
+        required: false
+        default: ''
+
+jobs:
+  run-hourly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Run hourly runner
+        env:
+          API_URL: ${{ secrets.BACKEND_API_URL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          MAX_PER_RUN: '120'
+        run: |
+          # Pass the input day directly.
+          # If it's a cron run, this will be empty, and the script will handle it.
+          NODE_DAY="${{ github.event.inputs.day }}"
+          echo "GitHub Actions received day: '$NODE_DAY'"
+          node scripts/hourly-run.js "$NODE_DAY" "$MAX_PER_RUN"

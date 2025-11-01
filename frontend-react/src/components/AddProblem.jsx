@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuthStore } from '../store'; // <-- 1. Import store
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function AddProblem() {
@@ -8,6 +9,9 @@ export default function AddProblem() {
   const [day, setDay] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState(null); 
+  
+  // 2. Get password from store
+  const adminPassword = useAuthStore((state) => state.adminPassword);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,9 +19,13 @@ export default function AddProblem() {
     setMessage(null);
 
     try {
+      // 3. Add auth header to fetch
       const res = await fetch(`${API_URL}/api/admin/add-problem`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${adminPassword}` 
+        },
         body: JSON.stringify({
           question_name: questionName,
           points: parseInt(points, 10),

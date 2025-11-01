@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuthStore } from '../store'; // <-- 1. Import store
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function PublishSolution() {
@@ -6,14 +7,21 @@ export default function PublishSolution() {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // 2. Get password from store
+  const adminPassword = useAuthStore((state) => state.adminPassword);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setMessage(null);
     try {
+      // 3. Add auth header to fetch
       const res = await fetch(`${API_URL}/api/admin/publish-solution`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${adminPassword}`
+        },
         body: JSON.stringify({ day: parseInt(day) }),
       });
       const data = await res.json();

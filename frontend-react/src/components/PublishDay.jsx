@@ -1,30 +1,38 @@
-import React, { useState } from 'react'
-const API_URL = import.meta.env.VITE_API_URL
+import React, { useState } from 'react';
+import { useAuthStore } from '../store'; // <-- 1. Import store
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function PublishDay() {
-  const [day, setDay] = useState('')
-  const [message, setMessage] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const [day, setDay] = useState('');
+  const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  // 2. Get password from store
+  const adminPassword = useAuthStore((state) => state.adminPassword);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setMessage('')
+    e.preventDefault();
+    setIsLoading(true);
+    setMessage('');
     try {
+      // 3. Add auth header to fetch
       const res = await fetch(`${API_URL}/api/admin/publish-day`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${adminPassword}`
+        },
         body: JSON.stringify({ day: parseInt(day) }),
-      })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Failed to publish')
-      setMessage(data.message)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to publish');
+      setMessage(data.message);
     } catch (err) {
-      setMessage(err.message)
+      setMessage(err.message);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -41,5 +49,5 @@ export default function PublishDay() {
       </button>
       {message && <p className="mt-2 text-center">{message}</p>}
     </form>
-  )
+  );
 }

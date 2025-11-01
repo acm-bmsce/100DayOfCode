@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useAuthStore } from '../store'; // <-- 1. Import store
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function AddSolution() {
@@ -9,11 +10,19 @@ export default function AddSolution() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState(null);
 
+  // 2. Get password from store
+  const adminPassword = useAuthStore((state) => state.adminPassword);
+
   // Fetch all problems to populate the dropdown
   useEffect(() => {
     async function fetchAllProblems() {
       try {
-        const res = await fetch(`${API_URL}/api/admin/all-problems`);
+        // 3. Add auth header to fetch (for GET request)
+        const res = await fetch(`${API_URL}/api/admin/all-problems`, {
+          headers: {
+            'Authorization': `Bearer ${adminPassword}`
+          }
+        });
         if (!res.ok) throw new Error('Failed to fetch problems');
         const data = await res.json();
         setProblems(data);
@@ -21,8 +30,11 @@ export default function AddSolution() {
         console.error(err.message);
       }
     }
-    fetchAllProblems();
-  }, []);
+    
+    if (adminPassword) {
+      fetchAllProblems();
+    }
+  }, [adminPassword]); // <-- 4. Add dependency
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,9 +46,13 @@ export default function AddSolution() {
     setMessage(null);
 
     try {
+      // 3. Add auth header to fetch (for POST request)
       const res = await fetch(`${API_URL}/api/admin/add-solution`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${adminPassword}`
+        },
         body: JSON.stringify({
           problem_id: parseInt(selectedProblem, 10),
           solution_link: solutionLink,
