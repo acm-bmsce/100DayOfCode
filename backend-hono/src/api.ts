@@ -46,6 +46,6 @@ export async function fetchUserSubmissions(username: string): Promise<Set<string
   } catch (error) {
     console.error(`Failed to fetch submissions for ${username}:`, error);
     // Return an empty set on failure so the update loop can continue
-    return new Set<string>();
+    throw error;
   }
 }

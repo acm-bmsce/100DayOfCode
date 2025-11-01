@@ -56,7 +56,7 @@ export default function ManualTrigger() {
         setProgress((processedCount / users.length) * 100)
         
         // Add a small delay to avoid rate-limiting the LeetCode API
-        await sleep(2400); // 50ms delay between users
+        await sleep(2400); 
       }
       if (isRunning.current) {
         setLogs(l => [...l, 'Update complete!']);
