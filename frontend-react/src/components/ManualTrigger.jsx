@@ -151,7 +151,7 @@ export default function ManualTrigger() {
           {logs.map((log, index) => (
             <p key={index} className={log.startsWith('[FAIL]') || log.startsWith('[ERROR]') || log.startsWith('[FATAL') ? 'text-red-500' : (log.startsWith('---') ? 'text-indigo-600 font-medium' : 'text-slate-700')}>
               {log}
-            </D>
+            </p>
           ))}
         </div>
       )}
