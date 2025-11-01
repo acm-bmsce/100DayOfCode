@@ -132,8 +132,10 @@ app.post('/api/admin/update-user-score', async (c) => {
     const new_streak = solved_at_least_one ? currentScore.streak + 1 : 0
 
     // 6. Update database
-    const updateStmt = c.env.DB.prepare('UPDATE Leaderboard SET points = ?, streak = ? WHERE username = ?')
-    await updateStmt.bind(new_points, new_streak, username).run()
+    const updateStmt = c.env.DB.prepare(
+      'UPDATE Leaderboard SET points = ?, streak = ?, last_updated_for_day = ? WHERE username = ?'
+    );
+    await updateStmt.bind(new_points, new_streak, day, username).run();
 
     return c.json({ 
       success: true, 
@@ -199,6 +201,21 @@ app.post('/api/admin/add-solution', async (c) => {
 
     return c.json({ success: true, message: 'Solution link updated' });
 
+  } catch (e: any) {
+    return c.json({ error: e.message }, 500);
+  }
+});
+
+app.get('/api/admin/users-to-process/:day', async (c) => {
+  const day = c.req.param('day');
+  if (!day) return c.json({ error: 'Day parameter is required' }, 400);
+
+  try {
+    const stmt = c.env.DB.prepare(
+      'SELECT username FROM Leaderboard WHERE last_updated_for_day != ?'
+    );
+    const { results } = await stmt.bind(day).all<{ username: string }>();
+    return c.json(results);
   } catch (e: any) {
     return c.json({ error: e.message }, 500);
   }
