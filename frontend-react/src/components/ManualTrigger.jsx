@@ -44,7 +44,7 @@ export default function ManualTrigger() {
       
       const CHUNK_SIZE = 40; // Process 40 users
       const CHUNK_DELAY = 60000; // Wait 1 minute (60,000ms)
-      const USER_DELAY = 100; // 100ms between users
+      const USER_DELAY = 2000; // 100ms between users
 
       for (let i = 0; i < usersToProcess.length; i += CHUNK_SIZE) {
         const chunk = usersToProcess.slice(i, i + CHUNK_SIZE);
