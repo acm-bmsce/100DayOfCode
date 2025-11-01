@@ -157,6 +157,22 @@ app.get('/api/admin/all-problems', async (c) => {
   return c.json(results);
 });
 
+app.get('/api/admin/all-users-details', async (c) => {
+  // 1. Secure the endpoint
+
+  try {
+    // 2. Query for ALL user data
+    const stmt = c.env.DB.prepare('SELECT id, username, name FROM Users');
+    const { results } = await stmt.all();
+    
+    // 3. Return the data
+    return c.json(results);
+
+  } catch (e: any) {
+    return c.json({ error: e.message }, 500);
+  }
+});
+
 app.post('/api/admin/add-problem', async (c) => {
   // In a real app, you'd add admin auth here
   const { question_name, points, link, day } = await c.req.json();
