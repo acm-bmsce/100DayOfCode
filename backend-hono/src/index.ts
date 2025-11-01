@@ -161,7 +161,7 @@ app.post('/api/admin/trigger-workflow', async (c) => {
         'User-Agent': 'Cloudflare-Worker' // GitHub API requires this
       },
       body: JSON.stringify({
-        ref: 'main', // <-- IMPORTANT: Change this if your main branch isn't 'main'
+        ref: 'prod', // <-- IMPORTANT: Change this if your main branch isn't 'main'
         inputs: {
           day: day.toString() 
         }
