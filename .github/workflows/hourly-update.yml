@@ -3,6 +3,8 @@ name: Hourly Leaderboard Updater
 on:
   schedule:
     - cron: '0 * * * *' # top of every hour
+  
+  # This block is required for the manual trigger API call to work
   workflow_dispatch:
     inputs:
       day:
