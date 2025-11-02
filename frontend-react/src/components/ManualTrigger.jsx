@@ -42,8 +42,8 @@ export default function ManualTrigger() {
       let processedCount = 0;
       const totalUsersToProcess = usersToProcess.length;
       
-      const CHUNK_SIZE = 110; // Process 40 users
-      const CHUNK_DELAY = 3600000; // Wait 1 minute (60,000ms)
+      const CHUNK_SIZE = 110; // Process 120 users
+      const CHUNK_DELAY = 3600000; // Wait 1 hour(60,000ms)
       const USER_DELAY = 2000; // 100ms between users
 
       for (let i = 0; i < usersToProcess.length; i += CHUNK_SIZE) {
