@@ -1,4 +1,4 @@
-/* -- Updated Schema -- */
+-- outdated schema
 DROP TABLE IF EXISTS Leaderboard;
 DROP TABLE IF EXISTS Problems;
 DROP TABLE IF EXISTS Users;

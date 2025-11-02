@@ -1,3 +1,6 @@
+-- outdated schema
+
+
 DELETE FROM Leaderboard;
 DELETE FROM Problems;
 DELETE FROM Users;
