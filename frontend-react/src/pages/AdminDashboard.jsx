@@ -1,6 +1,5 @@
 import React from 'react';
 import PublishDay from '../components/PublishDay';
-import ManualTrigger from '../components/ManualTrigger';
 import AdminProblemList from '../components/AdminProblemList';
 import AddProblem from '../components/AddProblem';
 import AddSolution from '../components/AddSolution';
@@ -38,10 +37,6 @@ export default function AdminDashboard() {
 
         <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
           <PublishSolution />
-        </div>
-
-        <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-          <ManualTrigger />
         </div>
         
         {/* Add an empty div if you have 5 items and want the last row (on lg) to align left */}
