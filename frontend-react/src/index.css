@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+img-wrapper{
+  background: white;
+  padding: 5px;
+}
+
+
 /* The funky scanline overlay */
 .scanlines {
   position: fixed;

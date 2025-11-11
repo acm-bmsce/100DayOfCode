@@ -14,7 +14,27 @@ export default function AdminProblemList() {
         const res = await fetch(`${API_URL}/api/admin/all-problems`);
         if (!res.ok) throw new Error('Failed to fetch problems');
         const data = await res.json();
-        setProblems(data);
+        
+        // --- FIX APPLIED: Group by Day and sort the problems array within the grouping ---
+        
+        // 1. Group the problems by day
+        const grouped = data.reduce((acc, p) => {
+          const day = p.day;
+          if (!acc[day]) {
+            acc[day] = [];
+          }
+          acc[day].push(p);
+          return acc;
+        }, {});
+
+        // 2. Sort the keys (day numbers) in descending order (highest day first)
+        const sortedDays = Object.keys(grouped).sort((a, b) => parseInt(b) - parseInt(a));
+
+        // 3. Create a final flat, sorted array based on the descending day order
+        const finalSortedProblems = sortedDays.flatMap(day => grouped[day]);
+        
+        setProblems(finalSortedProblems);
+        
       } catch (err) {
         setError(err.message);
         console.error(err);
@@ -37,11 +57,12 @@ export default function AdminProblemList() {
               <tr>
                 <th className="px-2 py-2 text-left">Day</th>
                 <th className="px-2 py-2 text-left">Name</th>
-                <th className="px-2 py-2 text-left">Problem Status</th> {/* <-- Renamed */}
-                <th className="px-2 py-2 text-left">Solution Status</th> {/* <-- 1. New Column */}
+                <th className="px-2 py-2 text-left">Problem Status</th>
+                <th className="px-2 py-2 text-left">Solution Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-red-900/50">
+              {/* This array is now already sorted in reverse day order */}
               {problems.map((p) => (
                 <tr key={p.id}>
                   <td className="px-2 py-2">{p.day}</td>
@@ -49,7 +70,6 @@ export default function AdminProblemList() {
                   <td className={`px-2 py-2 ${p.isPublic ? 'text-green-400' : 'text-gray-500'}`}>
                     {p.isPublic ? 'Published' : 'Hidden'}
                   </td>
-                  {/* 2. New Cell */}
                   <td className={`px-2 py-2 ${p.solution_link ? (p.isSolutionPublic ? 'text-green-400' : 'text-orange-400') : 'text-gray-500'}`}>
                     {p.solution_link ? (p.isSolutionPublic ? 'Published' : 'Hidden') : 'N/A'}
                   </td>

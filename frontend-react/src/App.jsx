@@ -30,7 +30,7 @@ function App() {
           {/* Green accent line */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-green-500"></div>
           <div className="flex items-center space-x-3 "> {/* Increased space-x */}
-            <img src={Logo} alt="ACM Logo" className="h-18 w-auto" /> {/* Logo Image (adjust h-8 if needed) */}
+            <img src={Logo} alt="ACM Logo" className="h-18 w-auto border-0 [clip-path:inset(0_2px)]" /> {/* Logo Image (adjust h-8 if needed) */}
             <h1 className="text-xl md:text-2xl font-bold text-gray-800">
               100 DAYS OF CODE - BMSCE ACM Student Chapter
             </h1>
