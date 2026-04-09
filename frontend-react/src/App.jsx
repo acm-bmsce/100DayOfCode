@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import { useAuthStore } from './store'
-import UserLoginPage from './pages/UserLoginPage'
 import AdminLoginPage from './pages/AdminLoginPage'
 import UserDashboard from './pages/UserDashboard'
 import AdminDashboard from './pages/AdminDashboard'
-import ProtectedUserRoute from './components/ProtectedUserRoute'
 import ProtectedAdminRoute from './components/ProtectedAdminRoute'
 import Logo from './assets/Logo.png'
 
 
 function App() {
-  const { username, isAdmin, checkAuth, logout } = useAuthStore()
+  const { isAdmin, checkAuth, logout } = useAuthStore()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -35,9 +33,9 @@ function App() {
               100 DAYS OF CODE - BMSCE ACM Student Chapter
             </h1>
           </div>
-          {username && (
+          {isAdmin && (
             <div className="flex items-center space-x-4 relative pt-1">
-               <span className="text-gray-600 hidden sm:inline">Welcome, {username}!</span>
+               <span className="text-gray-600 hidden sm:inline">Welcome, Admin</span>
               <button
                 onClick={handleLogout}
                 className="px-4 py-1.5 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition duration-150 text-sm" /* Adjusted button style */
@@ -53,13 +51,10 @@ function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grow w-full"> {/* Centered content */}
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<UserLoginPage />} />
+          <Route path="/" element={<UserDashboard />} />
           <Route path="/admin" element={<AdminLoginPage />} />
 
-          {/* Protected User Route */}
-          <Route element={<ProtectedUserRoute />}>
-            <Route path="/dashboard" element={<UserDashboard />} />
-          </Route>
+         
 
           {/* Protected Admin Route */}
           <Route element={<ProtectedAdminRoute />}>
