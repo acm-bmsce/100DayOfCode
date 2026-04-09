@@ -35,7 +35,7 @@ function App() {
           </div>
           {isAdmin && (
             <div className="flex items-center space-x-4 relative pt-1">
-               <span className="text-gray-600 hidden sm:inline">Welcome, {username}!</span>
+               <span className="text-gray-600 hidden sm:inline">Welcome, Admin</span>
               <button
                 onClick={handleLogout}
                 className="px-4 py-1.5 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition duration-150 text-sm" /* Adjusted button style */
