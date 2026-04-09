@@ -1,10 +1,7 @@
 import React from 'react';
-import { useAuthStore } from '../store';
-import Leaderboard from '../components/Leaderboard';
 import ProblemList from '../components/ProblemList';
 
 export default function UserDashboard() {
-  const name = useAuthStore((s) => s.name);
 
   return (
     <div className="flex flex-col gap-6 md:gap-8"> {/* Consistent gap */}
@@ -13,9 +10,7 @@ export default function UserDashboard() {
         <div className="lg:col-span-2">
           <ProblemList />
         </div>
-        <div className="lg:col-span-1">
-          <Leaderboard />
-        </div>
+        
       </div>
     </div>
   );
